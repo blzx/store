@@ -6,7 +6,7 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/parent',
       name: 'Parent',
       component: () => import('@/components/Parent')
     },
@@ -14,6 +14,11 @@ export default new Router({
       path: '/sibling',
       name: 'Sibling',
       component: () => import('@/components/Sibling')
+    },
+    {
+      path: '/storeMutation',
+      name: 'StoreMutation',
+      component: () => import('@/components/storeMutation')
     }
   ]
 })
