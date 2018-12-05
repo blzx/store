@@ -13,7 +13,7 @@
     export default {
         name: "Sibling",
       mounted(){
-        console.log(this.count);
+        console.log(this.doneTodosss);
         // console.log(this.countAlias);
         // console.log(this.countPlusLocalState);
         console.log(this.doneTodosCount)
@@ -65,17 +65,21 @@
           return this.$store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
         },*/
 
+        ...mapGetters({
+          doneTodosss:this.$store.getters.getTodoById(2)
+        }),
+
         // 使用mapGetters辅助函数 （使用对象展开运算符）
-        ...mapGetters([ // 直接获取getters  属性和返回值
+       /* ...mapGetters([ // 直接获取getters  属性和返回值
           'doneTodos',
           'doneTodosCount',
-        ])
+        ])*/
       },
       methods:{
         fn(){
           this.$store.commit('increment'); // 通过$store.commit()触发increment函数 提交mutations
           console.log(this.count)
-        }
+        },
       }
     }
 </script>
