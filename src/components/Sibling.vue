@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h1>sibling组件  Vuex.state</h1>
+      <h1>sibling  Vuex.state</h1>
       <hr>
       <button @click="fn">count++</button>
     </div>
