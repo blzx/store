@@ -13,10 +13,12 @@
     export default {
         name: "Sibling",
       mounted(){
-        console.log(this.count);
+        console.log(this.doneTodos);
         // console.log(this.countAlias);
         // console.log(this.countPlusLocalState);
-        console.log(this.doneTodosCount)
+        console.log(this.doneTodosCount);
+        console.log(this.getTodoId);
+        // sessionStorage.setItem('doneTodosCount',this.doneTodosCount)
       },
       data () {
         return {
@@ -43,39 +45,49 @@
       }),*/
 
       // 当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 mapState 传一个字符串数组。
-      /*computed:mapState([
-        // 映射 this.count 为 store.state.count
-        'count'
-      ]),*/
+      // computed:mapState([
+      //   // 映射 this.count 为 store.state.count
+      //   'count'
+      // ]),
 
       computed:{ // mapState 函数返回的是一个对象，使用对象展开运算符将最终对象传给computed属性，从而与局部计算属性混合使用
+
         // 使用对象展开运算符将此对象混入到外部对象中
         ...mapState({ // 对象展开运算符
           count:'count', // 如果使用数组的形式可以直接传一个字符串 'count'
         }),
 
         // 使用getters属性获取state派生出的状态 （ 属性访问 ）
-        /*doneTodoCount(){
-          // return this.$store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
-          return this.$store.getters.doneTodosCount // -> 1
-        },*/
+        // doneTodoCount(){
+        //   // return this.$store.getters.doneTodos // -> [{ id: 1, text: '...', done: true }]
+        //   return this.$store.getters.doneTodosCount // -> 1
+        // },
 
         // 通过方法进行访问
-        /*getTodoId(){
+        getTodoId(){
           return this.$store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
-        },*/
+        },
+
+        // ...mapGetters({  // 不能像mapState（{}）可以直接访问state一样直接访问getters  以下写法报错 如果想访问getters里的一个方法只能通过以上方法（使用this.$store.getters访问）
+        //   getTodoId(){
+        //     return this.$store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
+        //   },
+        //
+        //   getTodoId: getters => getters.getTodoById(2)
+        // }),
 
         // 使用mapGetters辅助函数 （使用对象展开运算符）
-        ...mapGetters([ // 直接获取getters  属性和返回值
-          'doneTodos',
-          'doneTodosCount',
-        ])
+        // ...mapGetters([ // 直接获取getters  属性和返回值
+        //   'doneTodos',
+        //   'doneTodosCount',
+        // ])
       },
       methods:{
         fn(){
           this.$store.commit('increment'); // 通过$store.commit()触发increment函数 提交mutations
+
           console.log(this.count)
-        }
+        },
       }
     }
 </script>
