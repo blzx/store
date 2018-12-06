@@ -64,11 +64,21 @@
         // },
 
         // 通过方法进行访问
+        // getTodoId(){
+        //   return this.$store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
+        // },
         getTodoId(){
-          return this.$store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
+            return this.getTodoById(2) // -> { id: 2, text: '...', done: false }
         },
+        // 辅助函数，注意不能直接获取到getters 只有以下两种写法
+        ...mapGetters({
+          add:'getTodoById'
+        }),
+        ...mapGetters([
+          'getTodoById'
+        ])
 
-        // ...mapGetters({  // 不能像mapState（{}）可以直接访问state一样直接访问getters  以下写法报错 如果想访问getters里的一个方法只能通过以上方法（使用this.$store.getters访问）
+        // ...mapGetters({  // 不能像mapState（{}）可以直接访问state一样直接访问getters  以下写法报错 如果想访问getters里的一个方法可以通过使用this.$store.getters访问的方式或者使用辅助函数拿到属性值，再通过一个computed属性（getTodoId）执行该方法
         //   getTodoId(){
         //     return this.$store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
         //   },

@@ -7,12 +7,13 @@
 </template>
 
 <script>
-  import { mapState, mapGetters, mapActions } from 'vuex' // mapState辅助函数帮助生成计算属性，解决computed中的状态重复冗余
+  import { mapState, mapGetters, mapMutations, mapActions } from 'vuex' // mapState辅助函数帮助生成计算属性，解决computed中的状态重复冗余
 
   export default {
     name: "storeMutation",
     mounted(){
-
+      // console.log(localStorage.getItem(this.count))
+      console.log(this.count)
     },
     data () {
       return {
@@ -20,25 +21,44 @@
       }
     },
 
-    computed:{ // mapState 函数返回的是一个对象，使用对象展开运算符将最终对象传给computed属性，从而与局部计算属性混合使用
-      // 使用对象展开运算符将此对象混入到外部对象中
-      ...mapState({ // 对象展开运算符
-        count:'count', // 如果使用数组的形式可以直接传一个字符串 'count'
+    computed:{
+      ...mapState({
+        count:'count',
       }),
 
-      // 使用mapGetters辅助函数 （使用对象展开运算符）
-      ...mapGetters([ // 直接获取getters  属性和返回值
+      ...mapGetters([
         'doneTodos',
         'doneTodosCount',
       ])
     },
     methods:{
+      // fn(){
+      //   this.$store.commit('increment',{
+      //     amount:1
+      //   }); // 通过$store.commit()触发increment函数 提交mutations
+      //   // localStorage.setItem('count',this.count);
+      //   console.log(this.count)
+      // },
+
+      // fn(){
+      //   this.$store.commit({ // 使用对象方式
+      //     type:'PLUS_COUNT', // 定义常量 代替mutation事件函数（increment）
+      //     amount: 1,
+      //   });
+      // },
+      ...mapMutations([ // 字符串数组
+        'increment' // 如果需要传参则在方法中使用this.increment({amount:1}); 如下fn方法
+      ]),
+      // ...mapMutations({ // 对象
+      //   add:'increment' // 如果需要传参则在方法中使用this.add({amount:1});如下fn方法
+      // }),
       fn(){
-        this.$store.commit('increment'); // 通过$store.commit()触发increment函数 提交mutations
-        console.log(this.count)
+        this.increment({amount:1}); // 或者this.add({amount:1});
+        console.log(this.count);
       }
     }
   }
+
 </script>
 
 <style scoped>
