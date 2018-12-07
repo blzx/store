@@ -3,6 +3,7 @@
     <!--<img s  rc="./assets/logo.png">-->
     <router-link tag="button" to="/sibling">sibling</router-link>
     <router-link tag="button" to="/storeMutation">storeMutation</router-link>
+    <router-link tag="button" to="/storeActions">storeActions</router-link>
     <router-view/>
   </div>
 </template>

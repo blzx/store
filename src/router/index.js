@@ -19,6 +19,11 @@ export default new Router({
       path: '/storeMutation',
       name: 'StoreMutation',
       component: () => import('@/components/storeMutation')
+    },
+    {
+      path: '/storeActions',
+      name: 'storeActions',
+      component: () => import('@/components/storeActions')
     }
   ]
 })

@@ -28,7 +28,52 @@ export default new Vuex.Store({
       return state.todos.find( todo => todo.id === id );
     }
   },
-  mutations, // 更改store中的状态
+  // mutations, // 更改store中的状态  在storeMutation组件中使用
+
+  mutations: {  // 提供actions使用
+    increment (state) {
+      state.count ++;
+    },
+    incrementBy (state,payload) {
+      state.count += payload.amount;
+    },
+  },
+  actions:{ // 不直接改变状态，而是提交mutation事件 可执行任意异步操作
+    // increment(context){ // context对象与store实例具有相同的方法和属性（但不是store实例本身），可以调用context.commit 或者通过context.state,context.getters 获取state和getters
+    //   context.commit('increment')
+    // }
+
+    // 参数结构方法简化代码 (结构context对象)
+    // increment ({ commit }){  // 组件中通过store.dispatch('increment') 触发
+    //   commit('increment')
+    // }
+
+    // 支持异步操作
+    increment ({ commit }) { // 不传参数
+      setTimeout(() => {
+        commit('increment');
+      },1000)
+    },
+    incrementBy ({ commit }, payload) { // 传参
+      console.log(payload);
+      setTimeout(() => {
+        commit('increment', payload);
+      },1000)
+    },
+
+    actionA ({ commit }){
+      return new Promise((resolve,reject) => {
+        setTimeout(() => {
+          commit('increment');
+          resolve();
+        },2000)
+      })
+    },
+    async actionB ({ dispatch, commit }) {
+      await dispatch('actionA'); // 等待 actionA 完成
+      commit('gotOtherData', await getOtherData())
+    }
+  }
 });
 // store.commit('increment') // store.commit方法触发，提交mutations
 

@@ -9,7 +9,6 @@
 <script>
   // import store from '../store/store'
   import { mapState, mapGetters, mapActions } from 'vuex' // mapState辅助函数帮助生成计算属性，解决computed中的状态重复冗余
-
     export default {
         name: "Sibling",
       mounted(){
